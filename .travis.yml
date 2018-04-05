@@ -23,6 +23,5 @@ before_deploy:
   - rm -f terraform.zip
 deploy:
    # Deploy using terraform
-  - provider: script
-    skip_cleanup: true
-    script: "./deploy.sh"
+  - terraform plan
+  - terraform apply
