@@ -2,7 +2,7 @@
 
 set -o errexit -o nounset
 
-cd /home/ec2-user/terraformGT/vpc/simple-php-app/terraform/
+cd terraform
 
 terraform plan
 
