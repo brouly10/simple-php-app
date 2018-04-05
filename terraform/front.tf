@@ -11,7 +11,7 @@ resource "aws_instance" "web-1" {
     subnet_id = "${aws_subnet.public.id}"
     associate_public_ip_address = true
     source_dest_check = false
-provisioner "file" {
+/*provisioner "file" {
     source = "script.sh"
     destination = "/tmp/script.sh"
   }
@@ -25,9 +25,9 @@ provisioner "file" {
     user = "ubuntu"
     private_key = "${file("/home/ec2-user/terraformGT/vpc/AWS42_key_pair.pem")}"
   }
-
+*/
     tags {
-        Name = "TerafformFrontend"
+        Name = "TerraformFrontend"
     }
 }
 
