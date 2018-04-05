@@ -1,8 +1,8 @@
 ### Provider
 provider "aws" {
   region = "${var.aws_region}"
-  access_key = "AWS_ACCESS_KEY_ID"
-  secret_key = "AWS_SECRET_ACCESS_KEY"
+  access_key = "AKIAITFYMDNXOK3FYKPQ"
+  secret_key = "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"
 }
 
 ### Resources
