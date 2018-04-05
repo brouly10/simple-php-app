@@ -1,8 +1,8 @@
 ### Provider
 provider "aws" {
   region = "${var.aws_region}"
-  access_key = "AKIAITFYMDNXOK3FYKPQ"
-  secret_key = "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"
+  #access_key = "AKIAITFYMDNXOK3FYKPQ"
+  #secret_key = "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"
 }
 
 ### Resources
