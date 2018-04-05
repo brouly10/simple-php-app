@@ -5,11 +5,15 @@ language: php
 
 services:
    - docker
-
+   
 script:
   # Build docker image
+ - docker build -t phpimage .
+
 post_install:
   # Push docker image to Docker Hub
+ - docker tag phpimage brouly10/phpimage
+ - docker push brouly10/phpimage
 
 before_deploy:
    # Install terraform
