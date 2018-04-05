@@ -23,5 +23,6 @@ before_deploy:
   - rm -f terraform.zip
 deploy:
    # Deploy using terraform
+  - cd terraform
   - terraform plan
   - terraform apply
