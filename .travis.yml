@@ -1,7 +1,5 @@
 sudo: required
 language: php
-before_install:
-    - ./ecr_credentials.sh
 services:
 - docker
 script:
