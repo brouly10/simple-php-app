@@ -1,8 +1,8 @@
 ### Provider
 provider "aws" {
   region = "${var.aws_region}"
-  access_key = ACCESS_KEY
-  secret_key = SECRET_KEY
+  access_key = "${var.ACCESS_KEY}"
+  secret_key = "${var.SECRET_KEY}"
 }
 
 ### Resources

@@ -1,28 +1,26 @@
-# travis.yml
 sudo: required
-
 language: php
-
 services:
-   - docker
-   
+- docker
 script:
-  # Build docker image
- - docker build -t phpimage .
-
+- docker build -t phpimage .
 post_install:
-  # Push docker image to Docker Hub
- - docker tag phpimage brouly10/phpimage
- - docker push brouly10/phpimage
-
+- docker tag phpimage brouly10/phpimage
+- docker push brouly10/phpimage
 before_deploy:
-   # Install terraform
-  - curl -fSL "https://releases.hashicorp.com/terraform/0.11.5/terraform_0.11.5_linux_amd64.zip" -o terraform.zip
-  - sudo unzip terraform.zip -d /opt/terraform
-  - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
-  - rm -f terraform.zip
+- curl -fSL "https://releases.hashicorp.com/terraform/0.11.5/terraform_0.11.5_linux_amd64.zip"
+  -o terraform.zip
+- sudo unzip terraform.zip -d /opt/terraform
+- sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+- rm -f terraform.zip
 deploy:
-   # Deploy using terraform
-  - provider: script
-    skip_cleanup: true
-    script: "./deploy.sh"
+- provider: script
+  skip_cleanup: true
+  script: ./deploy.sh
+env:
+  global:
+  - secure: ea2qIN7/ko5Cq0JrrIbh1VSoaG1YqJNI3IozfLJRxtBMhbDlqX9tbkRjXSeREO+F6nwpSlTmMSemr//QLfqrvbWv7vL5xU4gfgVZl8dd35tbq5iNLwR8xaTaSY6nXpYqF4vGEvaMzVdfqKJIAurowKKUjaV9q0nCKhExQ9t23YC0gJ2pfPzkGWoall4FkXTNDmsbmNyiUm2k8AK71+5cwhA8QhUdtg4eqIhDEewzFfu9PF5WMOkGdqat9+D9+ilkqkLes85tuWeHQq7CLVSSL3XeIVkTu0QrgAOqCdRLChrjRhp51OVDcoUHQ+o1hqD9nw0VShhDhgUmc7Cyh+aA62Ao6c2u0PxUkGEIk9nwvas9IYaKxQpAmJsjph6sfKaqu3O+gh6KL2CsmljS4lUA8c+oVCELAP7kZPZGS7zGx58v9nIPmBfEWqqGq03z2A0pl9C3aNIjY7HoYAAJXS+sUJFVFLPGd2CLRQU2GOqJjx+ko+Bv4Gr57lPKyj+CqZr0HrOtKduUjuGxuWRP9VjbwPulolUzVusuw/9KjMncKH4CrhVNYb4dM7pPGts70IDsDqAyxOtPR4LmL2AF/QZ/cXscKnlf48HeN+fk78wXHng4vB2GEJuk9Nmpd9C5Bg8M/vyO59yJiGtvjRg7P8cPFmrdo/3qksfpSyt0o7a5h7I=
+  - secure: HqJcZnExnvv6z7DxZSAbAnBhCTql4XvrfrjG6X0c5XyBlmc7U9qZcLV5Zlix6GZXCfmDLEH9JSvzyeGKtbbC7cqGGrj0cpgwtOMFZP+HcaME2QsaR+5ulJnQ2VMOcirbCkEFeG/mGZDmxoq6u/XSUqxy+ugvfDkxHe2TQtNgNk3Stae3B7fZcJkj+pzJOatZOIoB3cH5a/xJbq0zcZg9Zo8s3THw86wFWChysEtlmZwN2xetZn7MSw5KQCOwYUnARb+UBTmwYcsIYaN0c4OdUQBbO7xzxjqpAMp3Gs099Nhm0zUsJrD1pZa80CUSrxV7BYcXzO6CmweVgLCjmMW5fBv7hmyXZj1ZQczR9d/NZvM77v/lninotQfBhKb6IDwdsiM59AseecjvkACeLtJg+YmtOljIA5bNTGJ67YGUFphiEG1I3NbqabdUvnZFexfqwSP8aYSmWaiViHZgro9eh6YGZclYq67XJGmKsuFng9NPCfD+qsnplWTf0baegyebOCc+dCSoGLKaqymCPSP57gGCuRm0qB/A3dk1yNMc8ASC3IYcbngrzK7YURdeTRHohLmyYXHIcbeKXRKq1uK28I114oh8Fo3NNt2Yf+O3x7aiWJPjOXA6jxIS5K93gK6ss5vBYzGTeufBEgN8AdnOEEXtDMnC9vrnFxq48Znd7PY=
+  - secure: m17ahyPEg1CRknpqlLPHQdaw0SHYiHXFxj7bCgeM8J318I0P1h9gqLjqNAOyVze4pkt5Uc8Mm572rQXHRtX6cmZhr1yKUcK2XaIuUeb49J/XY1EFC6EGAabVvbiL2DVZT2XSaDOuYeIfvkTALHUWl2vdJL572A2nw3F1smji6YL4i/Brx7yqgU4C5QP/Yqsx9nCD8whOHdCpVqOEZjkvSh5X8HtLjUup3nEapm19s10VN3nFhId2x1MA8HeBJ17AJYOie7MmGUWet0ziVpjft+4ECToijLJamMNIhu6FiwEOOgrzoEyk6AIKp5c2xBIQR6E4MrCPpPgWx8zXiShixOJjLJYqs+taWk7XndvDUuYoUJ3KVTcV+1hvzl60YDTn4JLULOnRDXeLzrbkj8OzGt7QVTjLcLrcVL4a88sHl+nvIFwxWBc/va+E/LcboOMBS6SZrOtzclp6lms6bw9fyvwVj8CLFf9mi13WgoxlX+rYwg2FoBJIz5a+F4LT4VCWSPzCmQt1r3Uqmd1mlKweTXPVYTd+oaAKK/8wX8pC1PQBYeIzORmaSTXqviT5003uVT2hmJa7mJpwIYPNBAj+3JGBCgs61OvFuP0Hcgv7qZwYlB8VnbxGVHV8bmYmC18jFfs2HYqmaIIP5+JNe5fGbj4y1bq8z5AQUKhsDqytAx4=
+  - secure: A9EJtn2W1PKb9DvEEgF5TX/CA2YiszDeB0//RVz5eWG4BqkFGNNBJmS3NCT7ynsAd2CD85Sw90Cpv8D6yGFyp9ze1sc9EyCX97aqHblsgHapTQfe1RDJLDle+Nn0vFkIiXnBPQrD20cn7bqP47RS8ni076+KYIl3EeiRlJeTeHnO78OYJCk8WeJt7rYbHzj9P21nBOuURBX3DVSLx1vZAjafUxvN9w1WgNWdubsl4CvYlUIXUtvsa3LvRc8qmYfISRh8XwoiJCf/XqjhIg1xDpNhYFkRM3negXrBR3KFWj2JW0acBGn2j8H120khwN0Js1bejzkIFz4QnzFJP3ajFmTqJxSeZrR7gYZFV4xVvgj0j078g0glOvO4FXxN5PuouQyP0ER+7gR0tiCQHXPBFPMHcyWeE/OwvMHGZKC1pPIKuWkj6reLSflfLis7G6greV+bkg0KDaodQpJtk+2J2ykn0vNQhjKADIDIygnh1/rSuwU93gq0ULwGKV1Z07kwVd+2OWRo6QFGlcBvYDyI4ltOqmNxv63EiZczIueE+uDYFeCQLkpXsHqwv+Ln/5VnERvSRLa6OkR+hrHrPfQwje4SyhXWChj3xaWYfaY62IUwwKksGsREOOIokN3heG05jiE5J7sj16OKgSdDWmDA1lsivJxWzWvRT6JBUoqZ3aI=
+  - secure: DC/ALHkKZu4PZOAAQR6laYyt3BVUASylzYrc3yzuDXb0rhQWvpG3VqdGDhh2RmW+0Uz7t3Dd0PqJx0D/pDupQMqzAhdX9SoOxJ1EiOsMPyxNlThpHjNA1fPFbMbfUVzKw3wNDugoyOsdq0ON4w9JHOwP+eh78l1N3NU5Ed1yN29UYqOHJLZgQjm44wtMkm3V6nZ6WSXM3TTQbiLiSa4zOqR4BYUp9MBQ+61+1XU2li/hFYLavM+xFldE6hmGf/eJ5u5Jd9DuHrPT7Sk9M2z9pTK0cbxuJcECKRnIwEGnMW0wwEO1yiV8ikAORxb/s1OquKDgZpk/Ya0httSGVQmKxJM/ikCXUKKVHTQeAJE3zWXfx4RtIU+M2wKPWs5JU4V0xaOXJZPDeWn9z4EhCs3pvCO/xtS/rbCiOM/xs8Ill0SwxV6UmUXSkP4LJauEr9t7/pLK5y1SX/6A/pt55+meOjFhQu8igGm1tivR2aagijdESE3BVJ009LTew++0nTw009K1rNdi0Vo+VsRC/OCGTzqtspHNlBkvqRZA3tk6Rx3R0RJeuxl80pDLti0oB7BUX1VzLNVij96nTowGOrCeHLJX/vt5Vvlhi2obsWw2/Pgs6w1lhCUujDb3pPljgdnCgOxC6okrblekXS88gAd3lIqb04H5fL1dxkSWdajwr5E=
